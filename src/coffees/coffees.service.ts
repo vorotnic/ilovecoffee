@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { throws } from 'assert';
 import { threadId } from 'worker_threads';
 import { Coffee } from './entities/coffee.entity';
@@ -18,11 +23,16 @@ export class CoffeesService {
     return this.coffees;
   }
   findOne(id: string) {
-    return this.coffees.find((item) => item.id === +id);
+    const coffee = this.coffees.find((item) => item.id === +id);
+    if (!coffee) {
+      throw new NotFoundException(`Coffee #${id} is not found`);
+    }
+    return coffee;
   }
 
   create(createCoffeeDto: any) {
     this.coffees.push(createCoffeeDto);
+    return createCoffeeDto;
   }
 
   update(id: string, updateCoffeeDto: any) {
@@ -34,7 +44,7 @@ export class CoffeesService {
 
   remove(id: string) {
     const coffeeIndex = this.coffees.findIndex((item) => item.id === +id);
-    if (coffeeIndex > 0) {
+    if (coffeeIndex >= 0) {
       this.coffees.splice(coffeeIndex, 1);
     }
   }
