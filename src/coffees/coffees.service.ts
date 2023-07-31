@@ -14,8 +14,8 @@ import { threadId } from 'worker_threads';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
-import { Flavor } from './entities/flavor.entity/flavor.entity';
-import { Event } from 'src/events/entities/event.entity/event.entity';
+import { Flavor } from './entities/flavor.entity';
+import { Event } from './entities/event.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
 import { ConfigService, ConfigType } from '@nestjs/config';
 import coffeesConfig from './config/coffees.config';
@@ -27,9 +27,9 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
-    private readonly connection: Connection,
-    @Inject(coffeesConfig.KEY)
-    private coffeesConfiguration: ConfigType<typeof coffeesConfig>, 
+ //   private readonly connection: Connection,
+  //  @Inject(coffeesConfig.KEY)
+  //  private coffeesConfiguration: ConfigType<typeof coffeesConfig>, 
 
   ) {
 

@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CommonModule } from './common/common.module';
 import * as Joi from '@hapi/joi';
 import appConfig from './config/app.config';
+import { Public } from './common/decorators/public.decorator';
 
 @Module({
   imports: [
